@@ -48,6 +48,7 @@ rm "$USER_HOME/mediamtx/mediamtx.tar.gz"
 echo "--- 6. Setup Hailo Workspace & Download Model ---"
 mkdir -p "$USER_HOME/hailo_workspace/models"
 wget -q https://hailo-model-zoo.s3.eu-west-2.amazonaws.com/ModelZoo/Compiled/v2.14.0/hailo8l/yolov8n.hef -O "$USER_HOME/hailo_workspace/models/yolov8n.hef"
+wget -q https://hailo-model-zoo.s3.eu-west-2.amazonaws.com/ModelZoo/Compiled/v2.14.0/hailo8l/yolov8s.hef -O "$USER_HOME/hailo_workspace/models/yolov8s.hef"
 
 echo "--- 7. Generate Run Scripts ---"
 # Generate the MediaMTX startup script
@@ -60,7 +61,7 @@ EOF
 # Generate the GStreamer pipeline script
 cat << EOF > "$USER_HOME/run_stream.sh"
 #!/bin/bash
-gst-launch-1.0 hailomuxer name=hmux libcamerasrc ! video/x-raw,format=NV12,width=1920,height=1080,framerate=30/1 ! tee name=t t. ! queue ! hmux.sink_0 t. ! queue ! videoconvert ! videoscale add-borders=false method=0 ! video/x-raw,format=RGB,width=640,height=640,pixel-aspect-ratio=1/1 ! hailonet hef-path=$USER_HOME/hailo_workspace/models/yolov8n.hef batch-size=1 ! hailofilter so-path=/usr/lib/aarch64-linux-gnu/hailo/tappas/post_processes/libyolo_hailortpp_post.so qos=false ! hmux.sink_1 hmux. ! hailooverlay ! videoconvert ! x264enc bitrate=4000 speed-preset=ultrafast tune=zerolatency ! h264parse ! rtspclientsink location=rtsp://localhost:8554/mystream
+gst-launch-1.0 hailomuxer name=hmux libcamerasrc ! video/x-raw,format=NV12,width=1920,height=1080,framerate=30/1 ! tee name=t t. ! queue ! hmux.sink_0 t. ! queue ! videoconvert ! videoscale add-borders=false method=0 ! video/x-raw,format=RGB,width=640,height=640,pixel-aspect-ratio=1/1 ! hailonet hef-path=$USER_HOME/hailo_workspace/models/yolov8s.hef batch-size=1 ! hailofilter so-path=/usr/lib/aarch64-linux-gnu/hailo/tappas/post_processes/libyolo_hailortpp_post.so qos=false ! hmux.sink_1 hmux. ! hailooverlay ! videoconvert ! x264enc bitrate=4000 speed-preset=ultrafast tune=zerolatency ! h264parse ! rtspclientsink location=rtsp://localhost:8554/mystream
 EOF
 
 # Fix ownership and permissions
