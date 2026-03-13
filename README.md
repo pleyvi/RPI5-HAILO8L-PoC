@@ -19,7 +19,7 @@ Software & Architecture
 
 Core: C++17, GStreamer 1.0, Hailo Tappas SDK.
 
-Inference Model: YOLOv8n (Cross-compiled to Hailo HEF format).
+Inference Model: YOLOv8s (Cross-compiled to Hailo HEF format).
 
 Temporal Tracking: ByteTrack (Kalman Filter + Bipartite Matching) handling frame-to-frame identity persistence and occlusion recovery.
 
