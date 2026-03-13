@@ -3,6 +3,8 @@ This repo is about Proof-of-Concept perfomance of the Raspberry Pi 5 + AI+ HAT +
 
 Proof of Concept: High-Performance Edge AI Tracking Pipeline
 
+WARNING: Never try this in the open/production environment, PoC is completely insecure and concentrated on perfomance evaluation only
+
 Executive Summary
 
 Engineered a production-ready, highly optimized object detection and tracking pipeline for edge devices. The system leverages hardware-accelerated neural network inference and custom multi-threaded C++ GStreamer architecture to achieve sustained real-time performance (25 FPS) with minimal CPU overhead, ensuring temporal consistency for non-rigid body tracking.
