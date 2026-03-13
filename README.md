@@ -19,6 +19,8 @@ Sensor: Sony IMX708 (1080p hardware-locked via libcamera backend)
 
 Software & Architecture
 
+OS: Debian GNU/Linux 13 (trixie), (Raspberry PI OS ARM64)
+Kernel: Linux raspicam 6.12.62+rpt-rpi-2712 #1 SMP PREEMPT Debian 1:6.12.62-1+rpt1 (2025-12-18) aarch64 GNU/Linux
 Core: C++17, GStreamer 1.0, Hailo Tappas SDK.
 
 Inference Model: YOLOv8s (Cross-compiled to Hailo HEF format).
